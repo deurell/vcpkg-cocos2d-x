@@ -7,6 +7,11 @@ vcpkg_download_distfile(ARCHIVE
 )
 vcpkg_extract_source_archive(${ARCHIVE})
 
+if (VCPKG_CMAKE_SYSTEM_NAME STREQUAL WindowsStore)
+	set(VCPKG_LIBRARY_LINKAGE static)
+endif()
+
+
 vcpkg_apply_patches(
     SOURCE_PATH ${SOURCE_PATH}
     PATCHES ${CMAKE_CURRENT_LIST_DIR}/0001-Support-Windows-DLLs-via-CMAKE_WINDOWS_EXPORT_ALL_SY.patch
@@ -24,7 +29,7 @@ vcpkg_configure_cmake(
         -DWITH_HarfBuzz=OFF
 )
 
-vcpkg_install_cmake()
+vcpkg_install_cmake(MINSIZEREL)
 
 file(RENAME ${CURRENT_PACKAGES_DIR}/include/freetype2/freetype ${CURRENT_PACKAGES_DIR}/include/freetype)
 file(RENAME ${CURRENT_PACKAGES_DIR}/include/freetype2/ft2build.h ${CURRENT_PACKAGES_DIR}/include/ft2build.h)
