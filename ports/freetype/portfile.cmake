@@ -19,8 +19,8 @@ vcpkg_configure_cmake(
     OPTIONS
         -DCONFIG_INSTALL_PATH=share/freetype
         -DWITH_ZLIB=ON
-        -DWITH_BZip2=ON
-        -DWITH_PNG=ON
+        -DWITH_BZip2=OFF
+        -DWITH_PNG=OFF
         -DWITH_HarfBuzz=OFF
 )
 

@@ -1,8 +1,8 @@
 diff --git a/lib/lws-plat-win.c b/lib/lws-plat-win.c
-index dd3e95a..eb1690a 100644
+index be7d577..b218eb0 100644
 --- a/lib/lws-plat-win.c
 +++ b/lib/lws-plat-win.c
-@@ -155,7 +155,7 @@ lws_plat_service_tsi(struct lws_context *context, int timeout_ms, int tsi)
+@@ -151,7 +151,7 @@ lws_plat_service_tsi(struct lws_context *context, int timeout_ms, int tsi)
  {
  	struct lws_context_per_thread *pt = &context->pt[tsi];
  	WSANETWORKEVENTS networkevents;
@@ -11,15 +11,15 @@ index dd3e95a..eb1690a 100644
  	struct lws *wsi;
  	unsigned int i;
  	DWORD ev;
-@@ -493,6 +493,7 @@ lws_plat_inet_ntop(int af, const void *src, char *dst, int cnt)
+@@ -507,6 +507,7 @@ lws_plat_inet_ntop(int af, const void *src, char *dst, int cnt)
  	return ok ? dst : NULL;
  }
  
 +#if !defined(WINAPI_FAMILY) || (WINAPI_FAMILY == WINAPI_FAMILY_DESKTOP_APP)
  static lws_filefd_type
  _lws_plat_file_open(struct lws *wsi, const char *filename,
- 		    unsigned long *filelen, int flags)
-@@ -516,6 +517,35 @@ _lws_plat_file_open(struct lws *wsi, const char *filename,
+ 			unsigned long *filelen, int flags)
+@@ -530,6 +531,35 @@ _lws_plat_file_open(struct lws *wsi, const char *filename,
  
  	return ret;
  }
@@ -56,10 +56,10 @@ index dd3e95a..eb1690a 100644
  static int
  _lws_plat_file_close(struct lws *wsi, lws_filefd_type fd)
 diff --git a/lib/private-libwebsockets.h b/lib/private-libwebsockets.h
-index 23f8f4d..bc32aef 100644
+index b65687a..80b5e01 100644
 --- a/lib/private-libwebsockets.h
 +++ b/lib/private-libwebsockets.h
-@@ -48,12 +48,25 @@
+@@ -95,12 +95,25 @@ char *ets_strchr(const char *s, int c);
  #endif
  
  #if defined(WIN32) || defined(_WIN32)
@@ -89,3 +89,19 @@ index 23f8f4d..bc32aef 100644
  #define LWS_NO_DAEMONIZE
  #define LWS_ERRNO WSAGetLastError()
  #define LWS_EAGAIN WSAEWOULDBLOCK
+diff --git a/win32port/win32helpers/gettimeofday.h b/win32port/win32helpers/gettimeofday.h
+index 6208dcc..4a7c1ce 100644
+--- a/win32port/win32helpers/gettimeofday.h
++++ b/win32port/win32helpers/gettimeofday.h
+@@ -11,6 +11,11 @@
+   #include <winsock2.h>
+ #endif
+ 
++#if defined(WINAPI_FAMILY) && (WINAPI_FAMILY != WINAPI_FAMILY_DESKTOP_APP)
++#include <winsock2.h>
++#endif
++
++
+ #ifndef _TIMEZONE_DEFINED 
+ struct timezone 
+ {
