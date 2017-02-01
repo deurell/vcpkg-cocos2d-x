@@ -17,12 +17,11 @@ else ()
     message(FATAL_ERROR "Unsupported architecture")
 endif()
 
-
 SET(SOURCE_PATH ${CURRENT_BUILDTREES_DIR}/src)
 vcpkg_download_distfile(ARCHIVE
-    URLS "http://api.nuget.org/packages/angle.windowsstore.2.1.11.nupkg"
-    FILENAME "angle.zip"
-    SHA512 2af634c408ea75637d7c53e7f63f311e5172bc974a54e98c4179997b3857685cb1d5036870c8fb8121621626ee1a9bc5973b37255aa0b78aa1982463cfa7acac
+    URLS "http://api.nuget.org/packages/angle.windowsstore.2.1.13.nupkg"
+    FILENAME "angle.2.1.13.zip"
+    SHA512 e0323328573317d2e7fb9a9bebb408bd60b40d523b9eb63de35b0467875dff3eb285c5127b1e9f1f7ef45a48c637c6a165bc1f48c588bd975fdc016bb72fc93d
 )
 vcpkg_extract_source_archive(${ARCHIVE})
 
@@ -41,17 +40,21 @@ SET(OUTPUT_PATH ${CURRENT_PACKAGES_DIR}/../cocos2d-x-deps)
 #file(REMOVE_RECURSE ${OUTPUT_PATH})
 
 # Copy the angle header files
-SET(SOURCE_PATH ${CURRENT_BUILDTREES_DIR}/src)
-file(COPY ${SOURCE_PATH}/Include/ DESTINATION ${OUTPUT_PATH}/win10-specific/angle/include)
+if (VCPKG_PLATFORM STREQUAL "x86")
+    SET(SOURCE_PATH ${CURRENT_BUILDTREES_DIR}/src)
+    SET(OUTPUT_PATH ${CURRENT_PACKAGES_DIR}/../cocos2d-x-deps/win10-specific/angle/include)
+    file(REMOVE_RECURSE ${OUTPUT_PATH})
+    file(COPY ${SOURCE_PATH}/Include/ DESTINATION ${OUTPUT_PATH})
+endif()
 
 # Copy the win32 files
 SET(SOURCE_PATH ${CURRENT_BUILDTREES_DIR}/src/bin/UAP/${COCOS_PLATFORM})
 SET(OUTPUT_PATH ${CURRENT_PACKAGES_DIR}/../cocos2d-x-deps/win10-specific/angle/prebuilt/${COCOS_PLATFORM}/)
-
-file(COPY ${SOURCE_PATH}/libEGL.dll DESTINATION ${OUTPUT_PATH}/)
+file(REMOVE_RECURSE ${OUTPUT_PATH})
+file(COPY ${SOURCE_PATH}/libEGL.dll DESTINATION ${OUTPUT_PATH})
 file(COPY ${SOURCE_PATH}/libEGL.lib DESTINATION ${OUTPUT_PATH})
 file(COPY ${SOURCE_PATH}/libGLESv2.dll DESTINATION ${OUTPUT_PATH})
-file(COPY ${SOURCE_PATH}/libGLESv2.lib DESTINATION ${OUTPUT_PATH}/)
+file(COPY ${SOURCE_PATH}/libGLESv2.lib DESTINATION ${OUTPUT_PATH})
 
 # Copy the curl header files
 if (VCPKG_PLATFORM STREQUAL "x86")
@@ -66,7 +69,7 @@ SET(SOURCE_PATH ${CURRENT_PACKAGES_DIR}/../curl_${VCPKG_PLATFORM}-uwp)
 SET(OUTPUT_PATH ${CURRENT_PACKAGES_DIR}/../cocos2d-x-deps/curl/prebuilt/win10/${COCOS_PLATFORM}/)
 file(REMOVE_RECURSE ${OUTPUT_PATH})
 file(COPY ${SOURCE_PATH}/bin/libcurl.dll DESTINATION ${OUTPUT_PATH})
-file(COPY ${SOURCE_PATH}/lib/libcurl_imp.lib DESTINATION ${OUTPUT_PATH}/)
+file(COPY ${SOURCE_PATH}/lib/libcurl_imp.lib DESTINATION ${OUTPUT_PATH})
 
 # Copy the openssl header files
 if (VCPKG_PLATFORM STREQUAL "x86")
@@ -137,7 +140,6 @@ file(COPY ${SOURCE_PATH}/bin/vorbis.dll DESTINATION ${OUTPUT_PATH})
 file(COPY ${SOURCE_PATH}/lib/vorbis.lib DESTINATION ${OUTPUT_PATH})
 file(COPY ${SOURCE_PATH}/bin/vorbisfile.dll DESTINATION ${OUTPUT_PATH})
 file(COPY ${SOURCE_PATH}/lib/vorbisfile.lib DESTINATION ${OUTPUT_PATH})
-
 
 # Copy the zlib header files
 if (VCPKG_PLATFORM STREQUAL "x86")
