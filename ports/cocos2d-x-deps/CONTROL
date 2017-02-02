@@ -1,4 +1,4 @@
 Source: cocos2d-x-deps
 Version: 3.1.15
-Build-Depends: zlib, openssl, curl, freetype, sqlite3, libwebsockets, libogg, libvorbis
+Build-Depends: zlib, openssl, curl, freetype, sqlite3, libwebsockets, libogg, libvorbis, chipmunk
 Description: A vcpkg port that builds the external dependencies for cocos2d-x <https://github.com/cocos2d/cocos2d-x>

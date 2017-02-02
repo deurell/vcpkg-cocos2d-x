@@ -27,10 +27,10 @@ vcpkg_extract_source_archive(${ARCHIVE})
 
 
 # Put the licence file where vcpkg expects it
-file(COPY ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/cocos2d-x-deps)
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/cocos2d-x-deps)
 file(RENAME ${CURRENT_PACKAGES_DIR}/share/cocos2d-x-deps/LICENSE ${CURRENT_PACKAGES_DIR}/share/cocos2d-x-deps/copyright)
 
-#file(COPY ${SOURCE_PATH}/Include DESTINATION ${CURRENT_PACKAGES_DIR}/include)
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/license.h DESTINATION ${CURRENT_PACKAGES_DIR}/include)
 
 
 # We are going to copy everything to the cocos2d-x-deps dir
@@ -47,7 +47,7 @@ if (VCPKG_PLATFORM STREQUAL "x86")
     file(COPY ${SOURCE_PATH}/Include/ DESTINATION ${OUTPUT_PATH})
 endif()
 
-# Copy the win32 files
+# Copy the angle files
 SET(SOURCE_PATH ${CURRENT_BUILDTREES_DIR}/src/bin/UAP/${COCOS_PLATFORM})
 SET(OUTPUT_PATH ${CURRENT_PACKAGES_DIR}/../cocos2d-x-deps/win10-specific/angle/prebuilt/${COCOS_PLATFORM}/)
 file(REMOVE_RECURSE ${OUTPUT_PATH})
@@ -161,15 +161,22 @@ if (VCPKG_PLATFORM STREQUAL "x86")
     SET(SOURCE_PATH ${CURRENT_PACKAGES_DIR}/../libwebsockets_x86-uwp)
     SET(OUTPUT_PATH ${CURRENT_PACKAGES_DIR}/../cocos2d-x-deps/websockets/include/win10)
     file(REMOVE_RECURSE ${OUTPUT_PATH})
-    file(COPY ${SOURCE_PATH}/include/ DESTINATION ${OUTPUT_PATH}/websockets/include/win10)
+    file(COPY ${SOURCE_PATH}/include/ DESTINATION ${OUTPUT_PATH})
 endif()
 
-# Copy the win32 files
+# Copy the libwebsockets files
 SET(SOURCE_PATH ${CURRENT_PACKAGES_DIR}/../libwebsockets_${VCPKG_PLATFORM}-uwp)
 SET(OUTPUT_PATH ${CURRENT_PACKAGES_DIR}/../cocos2d-x-deps/websockets/prebuilt/win10/${COCOS_PLATFORM}/)
 file(REMOVE_RECURSE ${OUTPUT_PATH})
 file(COPY ${SOURCE_PATH}/bin/websockets.dll DESTINATION ${OUTPUT_PATH})
 file(COPY ${SOURCE_PATH}/lib/websockets.lib DESTINATION ${OUTPUT_PATH})
+
+# Copy the chipmunk files. cocos2d-x already has the header files
+SET(SOURCE_PATH ${CURRENT_PACKAGES_DIR}/../chipmunk_${VCPKG_PLATFORM}-uwp)
+SET(OUTPUT_PATH ${CURRENT_PACKAGES_DIR}/../cocos2d-x-deps/chipmunk/prebuilt/win10/${COCOS_PLATFORM}/)
+file(REMOVE_RECURSE ${OUTPUT_PATH})
+file(COPY ${SOURCE_PATH}/lib/chipmunk.lib DESTINATION ${OUTPUT_PATH})
+
 
 
 
