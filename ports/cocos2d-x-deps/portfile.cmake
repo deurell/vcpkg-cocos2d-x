@@ -103,7 +103,7 @@ file(COPY ${SOURCE_PATH}/lib/freetype.lib DESTINATION ${OUTPUT_PATH})
 
 # Copy the sqlite3 files
 # cocos2d-x already provides the header files
-SET(SOURCE_PATH ${CURRENT_PACKAGES_DIR}/../sqlite3_x86-uwp)
+SET(SOURCE_PATH ${CURRENT_PACKAGES_DIR}/../sqlite3_${VCPKG_PLATFORM}-uwp)
 SET(OUTPUT_PATH ${CURRENT_PACKAGES_DIR}/../cocos2d-x-deps/sqlite3/libraries/win10/${COCOS_PLATFORM}/)
 file(REMOVE_RECURSE ${OUTPUT_PATH})
 file(COPY ${SOURCE_PATH}/bin/sqlite3.dll DESTINATION ${OUTPUT_PATH})
