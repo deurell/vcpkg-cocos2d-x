@@ -1,9 +1,9 @@
 include(vcpkg_common_functions)
-set(SOURCE_PATH ${CURRENT_BUILDTREES_DIR}/src/curl-curl-7_51_0)
+set(SOURCE_PATH ${CURRENT_BUILDTREES_DIR}/src/curl-curl-7_52_1)
 vcpkg_download_distfile(ARCHIVE_FILE
-    URLS "https://github.com/curl/curl/archive/curl-7_51_0.tar.gz"
-    FILENAME "curl-7.51.0.tar.gz"
-    SHA512 88ec572efb1b2fb793dc26b627e54863718e774343283f0eb92022ce252f7798332d9d3f20f63e45c38576614a000abbf12570e91e14a118f150e0378f1a27e5
+    URLS "https://github.com/curl/curl/archive/curl-7_52_1.tar.gz"
+    FILENAME "curl-7.52.1.tar.gz"
+    SHA512 39341748fa55d8637c6876c6a12ec69a88c6aae972fec3460e3b7b78ead48388472fad2114e54d9c81b1e056ed36a8a91da85bf24746b4ac44db3d99ed2404a7
 )
 vcpkg_extract_source_archive(${ARCHIVE_FILE})
 
