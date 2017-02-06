@@ -153,6 +153,7 @@ SET(OUTPUT_PATH ${CURRENT_PACKAGES_DIR}/../cocos2d-x-deps/win10-specific/zlib/pr
 file(REMOVE_RECURSE ${OUTPUT_PATH})
 file(COPY ${SOURCE_PATH}/bin/zlib1.dll DESTINATION ${OUTPUT_PATH})
 file(COPY ${SOURCE_PATH}/lib/zlib.lib DESTINATION ${OUTPUT_PATH})
+file(COPY ${SOURCE_PATH}/lib/zlibstatic.lib DESTINATION ${OUTPUT_PATH})
 
 # Copy the libwebsockets header files
 if (VCPKG_PLATFORM STREQUAL "x86")
