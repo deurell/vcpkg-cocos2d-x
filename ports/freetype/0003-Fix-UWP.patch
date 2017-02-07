@@ -1,32 +1,34 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 744b2d5..d114b9b 100644
+index 00c7e62..f400c44 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -312,6 +312,9 @@ else ()
-   set(BASE_SRCS ${BASE_SRCS} src/base/ftdebug.c)
- endif ()
+@@ -105,6 +105,10 @@ set(PROJECT_VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH})
+ # Compiler definitions for building the library
+ add_definitions(-DFT2_BUILD_LIBRARY)
  
 +if(MSVC)
 +  add_definitions(-D_CRT_SECURE_NO_DEPRECATE -D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_WARNINGS)
 +endif()
++
+ # Specify library include directories
+ include_directories("${PROJECT_SOURCE_DIR}/include")
  
- if (BUILD_FRAMEWORK)
-   set(BASE_SRCS
-diff --git a/include/freetype/freetype.h b/include/freetype/freetype.h
-index 4666d48..382a915 100644
---- a/include/freetype/freetype.h
-+++ b/include/freetype/freetype.h
-@@ -845,6 +845,9 @@ FT_BEGIN_HEADER
-   /*************************************************************************/
-   /*************************************************************************/
+diff --git a/include/freetype.h b/include/freetype.h
+index 27fd44b..2798005 100644
+--- a/include/freetype.h
++++ b/include/freetype.h
+@@ -37,7 +37,9 @@
  
+ FT_BEGIN_HEADER
+ 
+-
 +#if defined(WINAPI_FAMILY) && (WINAPI_FAMILY != WINAPI_FAMILY_DESKTOP_APP)
 +#define generic GenericFromFreeTypeLibrary
 +#endif
  
    /*************************************************************************/
    /*                                                                       */
-@@ -1777,6 +1780,10 @@ FT_BEGIN_HEADER
+@@ -1739,6 +1741,10 @@ FT_BEGIN_HEADER
  
    } FT_GlyphSlotRec;
  
@@ -38,26 +40,28 @@ index 4666d48..382a915 100644
    /*************************************************************************/
    /*************************************************************************/
 diff --git a/src/base/ftobjs.c b/src/base/ftobjs.c
-index fa05347..ae2754b 100644
+index ee15a01..4c96009 100644
 --- a/src/base/ftobjs.c
 +++ b/src/base/ftobjs.c
-@@ -457,6 +457,9 @@
-     return error;
-   }
+@@ -449,6 +449,10 @@
+ 
+   /* documentation is in ftobjs.h */
  
 +#if defined(WINAPI_FAMILY) && (WINAPI_FAMILY != WINAPI_FAMILY_DESKTOP_APP)
 +#define generic GenericFromFreeTypeLibrary
 +#endif
- 
-   /* documentation is in ftobjs.h */
- 
-@@ -971,6 +974,9 @@
++
+   FT_BASE_DEF( void )
+   FT_Done_GlyphSlot( FT_GlyphSlot  slot )
+   {
+@@ -960,6 +964,10 @@
      FT_FREE( face );
    }
  
 +#if defined(WINAPI_FAMILY) && (WINAPI_FAMILY != WINAPI_FAMILY_DESKTOP_APP)
 +#undef generic
 +#endif
++
  
    static void
    Destroy_Driver( FT_Driver  driver )

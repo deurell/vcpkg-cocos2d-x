@@ -91,7 +91,7 @@ if (VCPKG_PLATFORM STREQUAL "x86")
     SET(SOURCE_PATH ${CURRENT_PACKAGES_DIR}/../freetype_x86-uwp)
     SET(OUTPUT_PATH ${CURRENT_PACKAGES_DIR}/../cocos2d-x-deps/freetype2/include/win10)
     file(REMOVE_RECURSE ${OUTPUT_PATH})
-    file(COPY ${SOURCE_PATH}/include/freetype DESTINATION ${OUTPUT_PATH})
+    file(COPY ${SOURCE_PATH}/include/freetype2 DESTINATION ${OUTPUT_PATH})
     file(COPY ${SOURCE_PATH}/include/ft2build.h DESTINATION ${OUTPUT_PATH})
 endif()
 

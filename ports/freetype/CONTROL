@@ -1,4 +1,4 @@
 Source: freetype
-Version: 2.6.3-4
+Version: 2.5.5
 Build-Depends: zlib
 Description: A library to render fonts.
